@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup()
+function M.init()
   require 'nvim-treesitter'.install {
     -- Web Languages
     "javascript", "typescript",
