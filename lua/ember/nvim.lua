@@ -26,10 +26,7 @@ local setup = function()
 end
 
 function M.setup()
-  local group = vim.api.nvim_create_augroup('ember-nvim', { clear = true })
-
   vim.api.nvim_create_autocmd('BufReadPre', {
-    group = group,
     pattern = '*', -- or e.g. '*.js'
     callback = function(args)
       setup()
