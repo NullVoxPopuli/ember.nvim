@@ -1,9 +1,12 @@
--- Lua treats dots in paths as /, so this plugin name is equiv of
--- "ember/nvim"
+-- Lua treats dots in paths as /,
+-- so these are equiv
+--   "ember/nvim"
+--   "ember.nvim"
 
 local M = {}
 
-function M.setup()
+local setup = function()
+  -- no-ops if any of these languages are already installed
   require 'nvim-treesitter'.install {
     -- Web Languages
     "javascript", "typescript",
@@ -20,6 +23,18 @@ function M.setup()
   -- Needed for markdown highlighting
   vim.treesitter.language.register('glimmer_javascript', 'gjs')
   vim.treesitter.language.register('glimmer_typescript', 'gts')
+end
+
+function M.setup()
+  local group = vim.api.nvim_create_augroup('ember-nvim', { clear = true })
+
+  vim.api.nvim_create_autocmd('BufReadPre', {
+    group = group,
+    pattern = '*', -- or e.g. '*.js'
+    callback = function(args)
+      setup()
+    end,
+  })
 end
 
 return M
