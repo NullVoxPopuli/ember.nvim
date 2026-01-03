@@ -19,4 +19,6 @@ function M.init()
   vim.treesitter.language.register('glimmer_typescript', 'gts')
 end
 
+M.setup = M.init
+
 return M
