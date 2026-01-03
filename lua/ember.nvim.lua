@@ -1,5 +1,7 @@
 local M = {}
 
+vim.print('Did it load?')
+
 function M.init()
   require 'nvim-treesitter'.install {
     -- Web Languages
