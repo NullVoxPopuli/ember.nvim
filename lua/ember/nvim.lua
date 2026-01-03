@@ -5,7 +5,7 @@
 
 local M = {}
 
-local setup = function()
+function M.config()
   -- no-ops if any of these languages are already installed
   require 'nvim-treesitter'.install {
     -- Web Languages
@@ -19,19 +19,12 @@ local setup = function()
     -- "comment", -- slow?
     "jsdoc",
   }
-
-  -- Needed for markdown highlighting
-  vim.treesitter.language.register('glimmer_javascript', 'gjs')
-  vim.treesitter.language.register('glimmer_typescript', 'gts')
 end
 
 function M.setup()
-  vim.api.nvim_create_autocmd('BufNew', {
-    pattern = '*', -- or e.g. '*.js'
-    callback = function(args)
-      setup()
-    end,
-  })
+  -- Needed for markdown highlighting
+  vim.treesitter.language.register('glimmer_javascript', 'gjs')
+  vim.treesitter.language.register('glimmer_typescript', 'gts')
 end
 
 return M

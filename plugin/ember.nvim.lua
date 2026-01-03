@@ -1,1 +1,1 @@
--- require('ember.nvim').setup()
+require('ember.nvim').setup()
