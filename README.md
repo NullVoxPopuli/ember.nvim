@@ -4,7 +4,7 @@
 
 ```lua
 use {
-'NullVoxPopuli/ember.nvim',
+    'NullVoxPopuli/ember.nvim',
     requires = {
         'nvim-treesitter/nvim-treesitter',
     }

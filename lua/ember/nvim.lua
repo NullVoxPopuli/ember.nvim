@@ -1,3 +1,6 @@
+-- Lua treats dots in paths as /, so this plugin name is equiv of
+-- "ember/nvim"
+
 local M = {}
 
 function M.setup()
