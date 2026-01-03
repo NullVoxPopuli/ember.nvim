@@ -1,0 +1,1 @@
+require('ember.nvim').setup()

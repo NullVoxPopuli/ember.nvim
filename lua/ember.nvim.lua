@@ -1,8 +1,6 @@
 local M = {}
 
-vim.print('Did it load?')
-
-function M.init()
+function M.setup()
   require 'nvim-treesitter'.install {
     -- Web Languages
     "javascript", "typescript",
@@ -20,7 +18,5 @@ function M.init()
   vim.treesitter.language.register('glimmer_javascript', 'gjs')
   vim.treesitter.language.register('glimmer_typescript', 'gts')
 end
-
-M.setup = M.init
 
 return M
