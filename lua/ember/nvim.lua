@@ -26,7 +26,7 @@ local setup = function()
 end
 
 function M.setup()
-  vim.api.nvim_create_autocmd('BufReadPre', {
+  vim.api.nvim_create_autocmd('BufNew', {
     pattern = '*', -- or e.g. '*.js'
     callback = function(args)
       setup()
