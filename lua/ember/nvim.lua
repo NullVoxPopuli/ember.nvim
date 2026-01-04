@@ -32,6 +32,7 @@ function M.setup()
   -- Needed for markdown highlighting
   vim.treesitter.language.register('glimmer_javascript', 'gjs')
   vim.treesitter.language.register('glimmer_typescript', 'gts')
+  vim.treesitter.language.register('glimmer', 'hbs')
 end
 
 return M
