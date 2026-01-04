@@ -6,6 +6,7 @@
 local M = {}
 
 function M.config()
+  require('ember.lsp.typescript')
 end
 
 function M.setup()
