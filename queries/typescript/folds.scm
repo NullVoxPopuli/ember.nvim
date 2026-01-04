@@ -3,7 +3,7 @@
 [
   (interface_declaration)
   (internal_module)
-  (property_signature)
+  (type_annotation)
   (type_alias_declaration)
   (enum_declaration)
   (comment)
