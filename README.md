@@ -20,7 +20,7 @@ use {
         'nvim-treesitter/nvim-treesitter',
     },
     config = function()
-        require('ember.nvim').setup()
+        require('ember.nvim').config()
     end
 }
 ```
