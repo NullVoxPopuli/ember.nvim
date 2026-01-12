@@ -10,6 +10,7 @@
     - glint v1 will be used when detected
     - glint v2 will be used when detected
     - all language servers are scoped to the project, and not editor-instance wide (like vscode), enabling you to have a mix of types of projects in the same repo (or have multiple repos open)
+- compatible with the `main` branch of `nvim-treesitter` (not `master`)
 
 ## Setup
 
