@@ -33,6 +33,27 @@ function M.setup()
   vim.treesitter.language.register('glimmer_javascript', 'gjs')
   vim.treesitter.language.register('glimmer_typescript', 'gts')
   vim.treesitter.language.register('glimmer', 'hbs')
+
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+      'javascript', 'typescript',
+      'html', 'css',
+      'glimmer', 'javascript.glimmer', 'typescript.glimmer',
+      'markdown',
+    },
+    callback = function()
+      -- Folding
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+
+      -- indentation
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+      -- Fancy!
+      vim.treesitter.start()
+    end,
+  })
 end
 
 return M
