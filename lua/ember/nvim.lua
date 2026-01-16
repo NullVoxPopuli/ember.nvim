@@ -10,6 +10,8 @@ function M.config()
 end
 
 function M.setup()
+  print("Setting up ember languages")
+
   -- vim.api.nvim_create_autocmd('User', {
   --   pattern = 'TSUpdate',
   --   callback = function()
