@@ -10,11 +10,6 @@ function M.config()
 end
 
 function M.setup()
-  print("Setting up ember languages")
-
-  -- vim.api.nvim_create_autocmd('User', {
-  --   pattern = 'TSUpdate',
-  --   callback = function()
   -- no-ops if any of these languages are already installed
   require 'nvim-treesitter'.install {
     -- Web Languages
@@ -28,10 +23,8 @@ function M.setup()
     -- "comment", -- slow?
     "jsdoc",
   }
-  --   end
-  -- })
 
-  -- Needed for markdown highlighting
+  -- These aliases are needed for markdown highlighting
   vim.treesitter.language.register('glimmer_javascript', 'gjs')
   vim.treesitter.language.register('glimmer_typescript', 'gts')
   vim.treesitter.language.register('glimmer', 'hbs')
