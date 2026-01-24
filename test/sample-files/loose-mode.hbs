@@ -1,0 +1,17 @@
+{{#each array key="@index" as |item|}}
+
+{{/each}}
+
+{{#let (or "first" "second") as |result|}}
+  
+{{/let}}
+
+<Foo @arg={{1}} @arg2="sring" @arg3={{Object foo=2 bar="string"}} as |a b|>
+  <a />
+
+  {{b}}
+</Foo>
+
+<Bar>
+  <:a></a>
+</Bar>
