@@ -34,7 +34,7 @@ function M.setup()
     pattern = {
       'javascript', 'typescript',
       'html', 'css',
-      'glimmer', 'javascript.glimmer', 'typescript.glimmer',
+      'handlebars', 'glimmer', 'javascript.glimmer', 'typescript.glimmer',
       'markdown',
     },
     callback = function()
