@@ -20,20 +20,15 @@ vim.lsp.config('ts_ls', {
   settings = {
     hostInfo = "neovim native TS LS",
     maxTsServerMemory = 8000,
-    -- implicitProjectConfig = {
-    --   experimentalDecorators = true
-    -- },
-    disableAutomaticTypingAcquisition = true,
-    importModuleSpecifierPreference = "relative",
-    importModuleSpecifierEnding = "minimal",
   },
   init_options = {
-    -- tsserver = { logVerbosity = 'verbose', trace = "verbose" },
+    -- https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md#preferences-options
     preferences = {
       disableAutomaticTypingAcquisition = true,
-      importModuleSpecifierPreference = "relative",
-      importModuleSpecifierEnding = "minimal",
+      importModuleSpecifierPreference = "shortest",
+      importModuleSpecifierEnding = "auto",
     },
+    -- tsserver = { logVerbosity = 'verbose', trace = "verbose" },
     plugins = {
       -- All plugins need to be defined here,
       -- even if we have to change the location later
