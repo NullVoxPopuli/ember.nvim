@@ -9,7 +9,46 @@ function M.config()
   require('ember.lsp.typescript')
 end
 
+-- Parser revisions that ember.nvim pins, overriding nvim-treesitter's bundled
+-- pins. nvim-treesitter (main) is archived and won't re-pin, so its versions
+-- lag behind upstream fixes (e.g. the glimmer comment-with-equals parsing fix).
+-- Bump these as the upstream parsers gain fixes worth shipping.
+M.parser_revisions = {
+  glimmer = {
+    url = 'https://github.com/ember-tooling/tree-sitter-glimmer',
+    revision = '437ac41e78f3415118f1c3c9b532b5eef1e2615c',
+  },
+  glimmer_javascript = {
+    url = 'https://github.com/ember-tooling/tree-sitter-glimmer-javascript',
+    revision = 'd9cf7a2f1dad3c6b660148eaf77e955d418fdb8b',
+  },
+  glimmer_typescript = {
+    url = 'https://github.com/ember-tooling/tree-sitter-glimmer-typescript',
+    revision = '12d98944c1d5077b957cbdb90d663a7c4d50118c',
+  },
+}
+
 function M.setup()
+  -- nvim-treesitter reloads its parsers table right before every install /
+  -- update (reload_parsers()), which wipes any one-time mutation of
+  -- install_info. The documented extension point is the `User TSUpdate`
+  -- autocmd it fires afterward, so re-apply our pins there. Registered before
+  -- install{} below so that the install picks them up too.
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'TSUpdate',
+    callback = function()
+      local parsers = require('nvim-treesitter.parsers')
+      for lang, info in pairs(M.parser_revisions) do
+        if parsers[lang] then
+          parsers[lang].install_info = {
+            url = info.url,
+            revision = info.revision,
+          }
+        end
+      end
+    end,
+  })
+
   -- no-ops if any of these languages are already installed
   require 'nvim-treesitter'.install {
     -- Web Languages

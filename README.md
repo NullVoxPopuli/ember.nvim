@@ -11,6 +11,25 @@
     - glint v2 will be used when detected
     - all language servers are scoped to the project, and not editor-instance wide (like vscode), enabling you to have a mix of types of projects in the same repo (or have multiple repos open)
 - compatible with the `main` branch of `nvim-treesitter` (not `master`)
+- pins the glimmer parsers (`glimmer`, `glimmer_javascript`, `glimmer_typescript`) to
+  known-good revisions, since `nvim-treesitter` is archived and its bundled pins no
+  longer receive fixes
+
+## Parser pinning
+
+`nvim-treesitter` (main) is archived and ships frozen parser revisions that lag behind
+upstream fixes (e.g. the `glimmer` comment-with-equals parsing fix). `ember.nvim`
+overrides those pins via the documented `User TSUpdate` autocmd, so the correct parsers
+are used on install/update. The pinned parsers are `glimmer`, `glimmer_javascript`, and
+`glimmer_typescript`.
+
+- **Fresh installs** pick up the pinned revisions automatically.
+- **Existing installs** already have the older parsers; run
+  `:TSUpdate glimmer glimmer_javascript glimmer_typescript` once to move to the pinned
+  revisions (a no-op install won't change an already-installed parser).
+
+The pins live in `require('ember.nvim').parser_revisions`; bump them as upstream gains
+fixes worth shipping.
 
 ## Setup
 
