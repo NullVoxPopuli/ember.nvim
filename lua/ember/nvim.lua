@@ -16,7 +16,7 @@ end
 M.parser_revisions = {
   glimmer = {
     url = 'https://github.com/ember-tooling/tree-sitter-glimmer',
-    revision = '437ac41e78f3415118f1c3c9b532b5eef1e2615c',
+    revision = 'c67a73679db2945a686ca45d3e5318d86138e72a',
   },
   glimmer_javascript = {
     url = 'https://github.com/ember-tooling/tree-sitter-glimmer-javascript',
