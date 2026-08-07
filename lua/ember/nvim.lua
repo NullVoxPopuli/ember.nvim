@@ -49,8 +49,8 @@ function M.setup()
     end,
   })
 
-  -- no-ops if any of these languages are already installed
-  require 'nvim-treesitter'.install {
+  local treesitter = require 'nvim-treesitter'
+  local languages = {
     -- Web Languages
     "javascript", "typescript",
     "html", "css", "regex",
@@ -62,6 +62,31 @@ function M.setup()
     -- "comment", -- slow?
     "jsdoc",
   }
+
+  -- Existing parsers can outlive their query files after a plugin migration.
+  -- nvim-treesitter.install() skips those parsers, so force only the languages
+  -- whose queries are actually missing.
+  local query_dir = require('nvim-treesitter.config').get_install_dir('queries')
+  local missing_queries = {}
+  for _, language in ipairs(languages) do
+    if not vim.uv.fs_stat(vim.fs.joinpath(query_dir, language)) then
+      missing_queries[#missing_queries + 1] = language
+    end
+  end
+
+  local complete_languages = {}
+  for _, language in ipairs(languages) do
+    if not vim.list_contains(missing_queries, language) then
+      complete_languages[#complete_languages + 1] = language
+    end
+  end
+
+  if #complete_languages > 0 then
+    treesitter.install(complete_languages)
+  end
+  if #missing_queries > 0 then
+    treesitter.install(missing_queries, { force = true })
+  end
 
   -- These aliases are needed for markdown highlighting
   vim.treesitter.language.register('glimmer_javascript', 'gjs')
