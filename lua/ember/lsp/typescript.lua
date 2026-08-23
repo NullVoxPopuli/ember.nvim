@@ -74,5 +74,31 @@ vim.lsp.config('glint', {
   filetypes = allFiletypes,
 })
 
+-- TypeScript 7's native LSP (nvim-lspconfig's `tsc`), for projects that
+-- declare `contentMappers` in tsconfig.json (e.g. ember-content-mapper).
+-- The mapper transforms gts/gjs for TypeScript itself, so ts_ls and glint
+-- both stay detached in these projects (see lsp/utils.lua).
+vim.lsp.config('tsc', {
+  root_dir = utils.is_content_mapper_project,
+  filetypes = tsFiletypes,
+  init_options = {
+    -- Content mappers spawn processes declared by the project, so TypeScript
+    -- requires this explicit opt-in (VS Code sends it for trusted workspaces).
+    runExternalCode = true,
+  },
+  get_language_id = function(_, filetype)
+    if filetype == 'typescript.glimmer' then
+      return 'typescript'
+    end
+
+    if filetype == 'javascript.glimmer' then
+      return 'javascript'
+    end
+
+    return filetype
+  end,
+})
+
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('glint')
+vim.lsp.enable('tsc')
