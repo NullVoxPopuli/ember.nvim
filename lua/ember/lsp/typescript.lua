@@ -81,6 +81,23 @@ vim.lsp.config('glint', {
 vim.lsp.config('tsc', {
   root_dir = utils.is_content_mapper_project,
   filetypes = tsFiletypes,
+  -- nvim-lspconfig's default `tsc` cmd resolves the binary inside its own
+  -- root_dir function (via a private bin cache). Overriding root_dir above
+  -- bypasses that, so resolve the workspace binary here instead.
+  cmd = function(dispatchers, config)
+    local cmd = 'tsc'
+    local root = (config or {}).root_dir
+
+    if root then
+      local localBin = vim.fs.joinpath(root, 'node_modules/.bin/tsc')
+
+      if vim.fn.executable(localBin) == 1 then
+        cmd = localBin
+      end
+    end
+
+    return vim.lsp.rpc.start({ cmd, '--lsp', '--stdio' }, dispatchers)
+  end,
   init_options = {
     -- Content mappers spawn processes declared by the project, so TypeScript
     -- requires this explicit opt-in (VS Code sends it for trusted workspaces).
